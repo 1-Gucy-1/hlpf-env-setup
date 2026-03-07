@@ -15,6 +15,6 @@ To generate this message, Docker took the following steps:
 v25.8.0
 ```
 ## Repository structure
--a----        07.03.2026     18:44            115 docker-compose.yml
--a----        07.03.2026     18:44             63 Dockerfile
--a----        07.03.2026     18:44            152 README.md
+-docker-compose.yml
+-Dockerfile
+-README.md
