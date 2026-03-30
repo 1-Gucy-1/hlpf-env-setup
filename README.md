@@ -2,19 +2,66 @@
 
 - Name: Кривенда Вероніка Ігорівна
 - Group: Група 232/2
-- Підготовка середовища
+
+## Практичне заняття №2 — NestJS + PostgreSQL + Redis
+
+## Структура репозиторію
+
+````
+
+├── src/              	# NestJS source code
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example      	# шаблон змінних оточення
+└── README.md
+
+## Запуск проекту
+```bash
+cp .env.example .env   # налаштувати значення
+docker compose up --build
+````
+
+## Перевірка сервісів
+
 ```text
-Docker version 28.0.1, build 068a01e
-Docker Compose version v2.33.1-desktop.1
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-To generate this message, Docker took the following steps:
-
-11.11.0
-v25.8.0
+PS C:\Users\Nika\hlpf-env-setup> docker compose ps
+NAME                        IMAGE                COMMAND                  SERVICE    CREATED        STATUS                   PORTS
+hlpf-env-setup-postgres-1   postgres:16-alpine   "docker-entrypoint.s…"   postgres   46 hours ago   Up 2 minutes (healthy)   0.0.0.0:5432->5432/tcp
+hlpf-env-setup-redis-1      redis:7-alpine       "docker-entrypoint.s…"   redis      46 hours ago   Up 2 minutes (healthy)   0.0.0.0:6379->6379/tcp
 ```
-## Repository structure
--docker-compose.yml
--Dockerfile
--README.md
+
+## Перевірка PostgreSQL
+
+```text
+ List of databases
+   Name    |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |   Access privileges
+-----------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------
+ nestdb    | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+ postgres  | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
+ template0 | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/nestuser          +
+           |          |          |                 |            |            |            |           | nestuser=CTc/nestuser
+ template1 | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/nestuser          +
+           |          |          |                 |            |            |            |           | nestuser=CTc/nestuser
+(4 rows)
+```
+
+## Перевірка Redis
+
+```text
+PONG
+```
+
+## Перевірка застосунку
+
+```text
+![alt text](image.png)
+```
+
+## Логи NestJS
+
+```text
+app-1  | [Nest] 34  - 03/30/2026, 5:27:22 PM     LOG [NestFactory] Starting Nest application...
+app-1  | [Nest] 34  - 03/30/2026, 5:27:24 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +1831ms
+app-1  | [Nest] 34  - 03/30/2026, 5:27:24 PM     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +86ms
+app-1  | [Nest] 34  - 03/30/2026, 5:27:24 PM     LOG [NestApplication] Nest application successfully started +9ms
+```
