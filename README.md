@@ -54,9 +54,8 @@ PONG
 ## Перевірка застосунку
 
 ```text
-<img width="251" height="185" alt="mdd" src="https://github.com/user-attachments/assets/2782df2e-b2f9-44bf-888c-8fac16ccc880" />
-
 ```
+<img width="251" height="185" alt="mdd" src="https://github.com/user-attachments/assets/bb828cf1-a4f1-4f67-899e-8b7589271e8f" />
 
 ## Логи NestJS
 
