@@ -54,7 +54,8 @@ PONG
 ## Перевірка застосунку
 
 ```text
-![alt text](image.png)
+<img width="251" height="185" alt="mdd" src="https://github.com/user-attachments/assets/2782df2e-b2f9-44bf-888c-8fac16ccc880" />
+
 ```
 
 ## Логи NestJS
