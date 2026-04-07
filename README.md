@@ -78,17 +78,20 @@ docker compose up --build
 ### Тест створення продукту
 
 ```text
-<<<<<<< HEAD
-=======
 {
-    "id":  2,
-    "name":  "Accessories",
+    "id":  1,
+    "name":  "iPhone 15",
     "description":  null,
-    "createdAt":  "2026-04-07T21:48:14.833Z"
+    "price":  999.99,
+    "stock":  50,
+    "isActive":  true,
+    "category":  {
+                     "id":  1
+                 },
+    "createdAt":  "2026-04-07T21:48:44.994Z",
+    "updatedAt":  "2026-04-07T21:48:44.994Z"
 }
->>>>>>> 2df7e4f (register modules in app, update readme)
 ```
-<img width="251" height="185" alt="mdd" src="https://github.com/user-attachments/assets/bb828cf1-a4f1-4f67-899e-8b7589271e8f" />
 
 ### Тест отримання продуктів
 
