@@ -3,65 +3,127 @@
 - Name: Кривенда Вероніка Ігорівна
 - Group: Група 232/2
 
-## Практичне заняття №2 — NestJS + PostgreSQL + Redis
+## Практичне заняття №3 — CRUD REST API для MiniShop
 
-## Структура репозиторію
+### Структура репозиторію
 
-````
-
-├── src/              	# NestJS source code
+```
+.
+├── src/
+│   ├── categories/
+│   │   ├── category.entity.ts
+│   │   ├── categories.module.ts
+│   │   ├── categories.service.ts
+│   │   └── categories.controller.ts
+│   ├── products/
+│   │   ├── product.entity.ts
+│   │   ├── products.module.ts
+│   │   ├── products.service.ts
+│   │   └── products.controller.ts
+│   ├── migrations/
+│   │   ├── 1700000001-CreateTables.ts
+│   │   └── <timestamp>-AddIsActiveToProducts.ts
+│   ├── data-source.ts
+│   └── app.module.ts
 ├── Dockerfile
 ├── docker-compose.yml
-├── .env.example      	# шаблон змінних оточення
 └── README.md
+```
 
-## Запуск проекту
+### Запуск проекту
+
 ```bash
-cp .env.example .env   # налаштувати значення
+cp .env.example .env
 docker compose up --build
-````
-
-## Перевірка сервісів
-
-```text
-PS C:\Users\Nika\hlpf-env-setup> docker compose ps
-NAME                        IMAGE                COMMAND                  SERVICE    CREATED        STATUS                   PORTS
-hlpf-env-setup-postgres-1   postgres:16-alpine   "docker-entrypoint.s…"   postgres   46 hours ago   Up 2 minutes (healthy)   0.0.0.0:5432->5432/tcp
-hlpf-env-setup-redis-1      redis:7-alpine       "docker-entrypoint.s…"   redis      46 hours ago   Up 2 minutes (healthy)   0.0.0.0:6379->6379/tcp
 ```
 
-## Перевірка PostgreSQL
+### API Endpoints
+
+| Method | URL                 | Опис               |
+| ------ | ------------------- | ------------------ |
+| GET    | /api/categories     | Список категорій   |
+| GET    | /api/categories/:id | Одна категорія     |
+| POST   | /api/categories     | Створити категорію |
+| PATCH  | /api/categories/:id | Оновити категорію  |
+| DELETE | /api/categories/:id | Видалити категорію |
+| GET    | /api/products       | Список продуктів   |
+| GET    | /api/products/:id   | Один продукт       |
+| POST   | /api/products       | Створити продукт   |
+| PATCH  | /api/products/:id   | Оновити продукт    |
+| DELETE | /api/products/:id   | Видалити продукт   |
+
+### Перевірка міграцій
 
 ```text
- List of databases
-   Name    |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |   Access privileges
------------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------
- nestdb    | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
- postgres  | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           |
- template0 | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/nestuser          +
-           |          |          |                 |            |            |            |           | nestuser=CTc/nestuser
- template1 | nestuser | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/nestuser          +
-           |          |          |                 |            |            |            |           | nestuser=CTc/nestuser
-(4 rows)
+ List of relations
+ Schema |    Name    | Type  |  Owner
+--------+------------+-------+----------
+ public | categories | table | nestuser
+ public | migrations | table | nestuser
+ public | products   | table | nestuser
+(3 rows)
 ```
 
-## Перевірка Redis
+### Тест створення категорії
 
 ```text
-PONG
+{
+    "id":  1,
+    "name":  "Electronics",
+    "description":  "Gadgets and devices",
+    "createdAt":  "2026-04-07T21:46:17.917Z"
+}
 ```
 
-## Перевірка застосунку
+### Тест створення продукту
 
 ```text
+<<<<<<< HEAD
+=======
+{
+    "id":  2,
+    "name":  "Accessories",
+    "description":  null,
+    "createdAt":  "2026-04-07T21:48:14.833Z"
+}
+>>>>>>> 2df7e4f (register modules in app, update readme)
 ```
 <img width="251" height="185" alt="mdd" src="https://github.com/user-attachments/assets/bb828cf1-a4f1-4f67-899e-8b7589271e8f" />
 
-## Логи NestJS
+### Тест отримання продуктів
 
 ```text
-app-1  | [Nest] 34  - 03/30/2026, 5:27:22 PM     LOG [NestFactory] Starting Nest application...
-app-1  | [Nest] 34  - 03/30/2026, 5:27:24 PM     LOG [InstanceLoader] TypeOrmModule dependencies initialized +1831ms
-app-1  | [Nest] 34  - 03/30/2026, 5:27:24 PM     LOG [InstanceLoader] TypeOrmCoreModule dependencies initialized +86ms
-app-1  | [Nest] 34  - 03/30/2026, 5:27:24 PM     LOG [NestApplication] Nest application successfully started +9ms
+{
+    "value":  [
+                  {
+                      "id":  1,
+                      "name":  "iPhone 15",
+                      "description":  null,
+                      "price":  "999.99",
+                      "stock":  50,
+                      "isActive":  true,
+                      "category":  {
+                                       "id":  1,
+                                       "name":  "Electronics",
+                                       "description":  "Gadgets and devices",
+                                       "createdAt":  "2026-04-07T21:46:17.917Z"
+                                   },
+                      "createdAt":  "2026-04-07T21:48:44.994Z",
+                      "updatedAt":  "2026-04-07T21:48:44.994Z"
+                  }
+              ],
+    "Count":  1
+}
+```
+
+### Тест 404
+
+```text
+Invoke-RestMethod : {"message":"Product #999 not found","error":"Not Found","statusCode":404}
+At line:1 char:1
++ Invoke-RestMethod `
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-RestMethod], WebExc
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeRestMethodCommand
 ```
