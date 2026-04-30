@@ -7,10 +7,12 @@ import {
   Param,
   Body,
   ParseIntPipe,
-} from "@nestjs/common";
-import { CategoriesService } from "./categories.service";
+} from '@nestjs/common';
+import { CategoriesService } from './categories.service';
+import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
-@Controller("api/categories")
+@Controller('api/categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
@@ -19,26 +21,26 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
-  @Get(":id")
-  findOne(@Param("id", ParseIntPipe) id: number) {
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.findOne(id);
   }
 
   @Post()
-  create(@Body() body: { name: string; description?: string }) {
-    return this.categoriesService.create(body);
+  create(@Body() dto: CreateCategoryDto) {
+    return this.categoriesService.create(dto);
   }
 
-  @Patch(":id")
+  @Patch(':id')
   update(
-    @Param("id", ParseIntPipe) id: number,
-    @Body() body: Partial<{ name: string; description: string }>,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(id, body);
+    return this.categoriesService.update(id, dto);
   }
 
-  @Delete(":id")
-  remove(@Param("id", ParseIntPipe) id: number) {
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.remove(id);
   }
 }
